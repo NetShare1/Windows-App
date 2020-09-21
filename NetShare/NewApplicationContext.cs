@@ -50,6 +50,8 @@ namespace NetShare
                 }
                 else
                 {
+                    Form.Focus();
+                    Form.setLocation();
                     Form.ShowDialog();
                 }
             }
