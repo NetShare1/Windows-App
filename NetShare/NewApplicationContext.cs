@@ -50,9 +50,6 @@ namespace NetShare
                 }
                 else
                 {
-                    //Application.OpenForms[Form].Focus();
-                    //Form.Activate();
-                    //Form.Focus();
                     Form.ShowDialog();
                 }
             }
