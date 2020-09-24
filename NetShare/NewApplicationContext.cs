@@ -13,6 +13,7 @@ namespace NetShare
     public class NewApplicationContext : ApplicationContext
     {
         private Form1 Form = new Form1();
+
         private NotifyIcon trayIcon;
 
         public NewApplicationContext()
