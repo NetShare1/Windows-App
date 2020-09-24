@@ -13,15 +13,11 @@ namespace NetShare
 {
     public partial class Form1 : Form
     {
+        public static bool Deactivated = false; 
 
         public Form1()
         {
-            InitializeComponent();
-
-            LostFocus += Form_LostFocus;
-
-            setLocation();
-            
+            InitializeComponent();  
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -31,11 +27,6 @@ namespace NetShare
                 e.Cancel = true;
                 Hide();
             }
-        }
-
-        private void Form_LostFocus(object sender, EventArgs e)
-        {
-            Hide();
         }
 
         public void setLocation()
@@ -69,6 +60,12 @@ namespace NetShare
                 //Taskbar not found
                 MessageBox.Show("NOTFOUND");
             }
+        }
+
+        private void Form1_Deactivate(object sender, EventArgs e)
+        {
+            Deactivated = true;
+            Hide();
         }
     }
 }
