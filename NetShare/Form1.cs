@@ -21,7 +21,7 @@ namespace NetShare
             //LostFocus += Form_LostFocus;
 
             this.Location = new Point(Screen.PrimaryScreen.WorkingArea.X + Screen.PrimaryScreen.WorkingArea.Width - Width - 10,
-                                      Screen.PrimaryScreen.WorkingArea.Y + Screen.PrimaryScreen.WorkingArea.Height - Height);
+                                      Screen.PrimaryScreen.WorkingArea.Y + Screen.PrimaryScreen.WorkingArea.Height - Height);     
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

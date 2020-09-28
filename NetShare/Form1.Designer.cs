@@ -57,7 +57,7 @@
             this.butConnect.Margin = new System.Windows.Forms.Padding(0);
             this.butConnect.Name = "butConnect";
             this.butConnect.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.butConnect.RoundingArc = 50;
+            this.butConnect.RoundingArc = 20;
             this.butConnect.Size = new System.Drawing.Size(300, 50);
             this.butConnect.Style = MetroSuite.Design.Style.Custom;
             this.butConnect.TabIndex = 1;
