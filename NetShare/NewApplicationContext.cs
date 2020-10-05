@@ -36,6 +36,7 @@ namespace NetShare
         {
             // Hide tray icon, otherwise it will remain shown until user mouses over it
             trayIcon.Visible = false;
+            trayIcon.Dispose();
 
             Application.Exit();
         }
@@ -45,14 +46,17 @@ namespace NetShare
             var eventArgs = e as MouseEventArgs;
             if (eventArgs.Button == MouseButtons.Left)
             {
-                if (Form.Visible == true)
+               
+                if (!Form1.Deactivated)
                 {
-                    Form.Hide();
+                    Form.setLocation();
+                    Form.ShowDialog();
                 }
                 else
                 {
-                    Form.ShowDialog();
+                    Form1.Deactivated = false;
                 }
+               
             }
         }
     }
