@@ -37,8 +37,10 @@
     </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MetroSuite 2.0">
-      <HintPath>..\..\..\..\Downloads\MetroSuite 2.0.dll</HintPath>
+    <Reference Include="MetroSuite 2.0, Version=2.0.2.0, Culture=neutral, PublicKeyToken=7b7d08837f2e598f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\MetroSuite 2.0.dll</HintPath>
+
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
