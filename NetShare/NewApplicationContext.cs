@@ -21,7 +21,7 @@ namespace NetShare
             // Initialize Tray Icon
             trayIcon = new NotifyIcon()
             {
-                Icon = Resources.Icon1,
+                Icon = Resources.Tasktrayicon,
                 ContextMenu = new ContextMenu(new MenuItem[] {
                 new MenuItem("Exit", Exit)
             }),
@@ -36,7 +36,6 @@ namespace NetShare
         {
             // Hide tray icon, otherwise it will remain shown until user mouses over it
             trayIcon.Visible = false;
-            trayIcon.Dispose();
 
             Application.Exit();
         }
@@ -46,7 +45,6 @@ namespace NetShare
             var eventArgs = e as MouseEventArgs;
             if (eventArgs.Button == MouseButtons.Left)
             {
-               
                 if (!Form1.Deactivated)
                 {
                     Form.setLocation();

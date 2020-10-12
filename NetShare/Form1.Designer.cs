@@ -49,7 +49,7 @@
             this.butConnect.DefaultColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(160)))), ((int)(((byte)(71)))));
             this.butConnect.DisabledColor = System.Drawing.Color.Gray;
             this.butConnect.DrawBorder = false;
-            this.butConnect.Font = new System.Drawing.Font("Montserrat", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.butConnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.butConnect.ForeColor = System.Drawing.Color.White;
             this.butConnect.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.butConnect.IsRound = true;
@@ -57,7 +57,7 @@
             this.butConnect.Margin = new System.Windows.Forms.Padding(0);
             this.butConnect.Name = "butConnect";
             this.butConnect.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.butConnect.RoundingArc = 20;
+            this.butConnect.RoundingArc = 50;
             this.butConnect.Size = new System.Drawing.Size(300, 50);
             this.butConnect.Style = MetroSuite.Design.Style.Custom;
             this.butConnect.TabIndex = 1;
@@ -68,7 +68,7 @@
             this.red_background_rectangle.Image = ((System.Drawing.Image)(resources.GetObject("red_background_rectangle.Image")));
             this.red_background_rectangle.Location = new System.Drawing.Point(0, 0);
             this.red_background_rectangle.Name = "red_background_rectangle";
-            this.red_background_rectangle.Size = new System.Drawing.Size(414, 564);
+            this.red_background_rectangle.Size = new System.Drawing.Size(414, 454);
             this.red_background_rectangle.TabIndex = 2;
             this.red_background_rectangle.TabStop = false;
             // 
@@ -79,6 +79,7 @@
             this.lock_open.Location = new System.Drawing.Point(132, 110);
             this.lock_open.Name = "lock_open";
             this.lock_open.Size = new System.Drawing.Size(150, 150);
+            this.lock_open.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.lock_open.TabIndex = 3;
             this.lock_open.TabStop = false;
             // 
@@ -127,7 +128,7 @@
             this.butStatus.DefaultColor = System.Drawing.Color.White;
             this.butStatus.DisabledColor = System.Drawing.Color.White;
             this.butStatus.DrawBorder = false;
-            this.butStatus.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.butStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.butStatus.ForeColor = System.Drawing.Color.Black;
             this.butStatus.HoverColor = System.Drawing.Color.White;
             this.butStatus.IsRound = true;
@@ -152,7 +153,6 @@
             this.Controls.Add(this.lock_open);
             this.Controls.Add(this.butConnect);
             this.Controls.Add(this.red_background_rectangle);
-
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.Name = "Form1";
@@ -161,7 +161,6 @@
             this.Text = "Form1";
             this.TopMost = true;
             this.Deactivate += new System.EventHandler(this.Form1_Deactivate);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.red_background_rectangle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lock_open)).EndInit();
             this.ResumeLayout(false);

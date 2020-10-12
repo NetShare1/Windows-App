@@ -63,9 +63,9 @@ namespace NetShare.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon Icon1 {
+        internal static System.Drawing.Icon Tasktrayicon {
             get {
-                object obj = ResourceManager.GetObject("Icon1", resourceCulture);
+                object obj = ResourceManager.GetObject("Tasktrayicon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

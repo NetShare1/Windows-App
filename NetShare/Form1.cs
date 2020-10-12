@@ -18,21 +18,6 @@ namespace NetShare
         public Form1()
         {
             InitializeComponent();
-
-            //LostFocus += Form_LostFocus;
-
-            this.Location = new Point(Screen.PrimaryScreen.WorkingArea.X + Screen.PrimaryScreen.WorkingArea.Width - Width - 10,
-                                      Screen.PrimaryScreen.WorkingArea.Y + Screen.PrimaryScreen.WorkingArea.Height - Height);     
-
-        }
-
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                e.Cancel = true;
-                Hide();
-            }
         }
 
         public void setLocation()
@@ -60,11 +45,6 @@ namespace NetShare
                 //Taskbar right
                 this.Location = new Point(Screen.PrimaryScreen.WorkingArea.X + Screen.PrimaryScreen.WorkingArea.Width - Width - 10,
                                       Screen.PrimaryScreen.WorkingArea.Y + Screen.PrimaryScreen.WorkingArea.Height - Height);
-            }
-            else
-            {
-                //Taskbar not found
-                MessageBox.Show("NOTFOUND");
             }
         }
 

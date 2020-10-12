@@ -1,0 +1,11 @@
+C:\Users\Grafl\Documents\NetShare\Windows-App\NetShare\bin\Debug\NetShare.exe.config
+C:\Users\Grafl\Documents\NetShare\Windows-App\NetShare\bin\Debug\NetShare.exe
+C:\Users\Grafl\Documents\NetShare\Windows-App\NetShare\bin\Debug\NetShare.pdb
+C:\Users\Grafl\Documents\NetShare\Windows-App\NetShare\obj\Debug\NetShare.Form1.resources
+C:\Users\Grafl\Documents\NetShare\Windows-App\NetShare\obj\Debug\NetShare.Properties.Resources.resources
+C:\Users\Grafl\Documents\NetShare\Windows-App\NetShare\obj\Debug\NetShare.csproj.GenerateResource.cache
+C:\Users\Grafl\Documents\NetShare\Windows-App\NetShare\obj\Debug\NetShare.csproj.CoreCompileInputs.cache
+C:\Users\Grafl\Documents\NetShare\Windows-App\NetShare\obj\Debug\NetShare.exe
+C:\Users\Grafl\Documents\NetShare\Windows-App\NetShare\obj\Debug\NetShare.pdb
+C:\Users\Grafl\Documents\NetShare\Windows-App\NetShare\obj\Debug\NetShare.csprojAssemblyReference.cache
+C:\Users\Grafl\Documents\NetShare\Windows-App\NetShare\obj\Debug\NetShare.csproj.CopyComplete
