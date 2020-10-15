@@ -48,13 +48,18 @@ namespace NetShare
                 if (!Form1.Deactivated)
                 {
                     Form.setLocation();
-                    Form.ShowDialog();
+                    try
+                    {
+                        Form.ShowDialog();
+                    }
+                    catch(Exception)
+                    {
+                    }
                 }
                 else
                 {
                     Form1.Deactivated = false;
                 }
-               
             }
         }
     }

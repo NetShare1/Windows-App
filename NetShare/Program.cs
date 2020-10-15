@@ -19,6 +19,7 @@ namespace NetShare
             Application.SetCompatibleTextRenderingDefault(false);
 
             Application.Run(new NewApplicationContext());
+
         }
 
 
