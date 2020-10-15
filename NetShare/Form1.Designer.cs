@@ -142,7 +142,7 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(414, 564);
@@ -152,15 +152,14 @@
             this.Controls.Add(this.lock_open);
             this.Controls.Add(this.butConnect);
             this.Controls.Add(this.red_background_rectangle);
-
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Form1";
             this.TopMost = true;
-            this.Deactivate += new System.EventHandler(this.Form1_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.red_background_rectangle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lock_open)).EndInit();
@@ -175,7 +174,6 @@
         private MetroSuite.MetroButton butMenu;
         private MetroSuite.MetroButton butStats;
         private MetroSuite.MetroButton butStatus;
-
     }
 }
 
