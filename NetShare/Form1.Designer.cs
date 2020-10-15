@@ -76,9 +76,10 @@
             // 
             this.lock_open.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(96)))), ((int)(((byte)(91)))));
             this.lock_open.Image = ((System.Drawing.Image)(resources.GetObject("lock_open.Image")));
-            this.lock_open.Location = new System.Drawing.Point(132, 110);
+            this.lock_open.Location = new System.Drawing.Point(107, 64);
             this.lock_open.Name = "lock_open";
-            this.lock_open.Size = new System.Drawing.Size(150, 150);
+            this.lock_open.Size = new System.Drawing.Size(200, 200);
+            this.lock_open.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.lock_open.TabIndex = 3;
             this.lock_open.TabStop = false;
             // 
@@ -131,10 +132,11 @@
             this.butStatus.ForeColor = System.Drawing.Color.Black;
             this.butStatus.HoverColor = System.Drawing.Color.White;
             this.butStatus.IsRound = true;
-            this.butStatus.Location = new System.Drawing.Point(122, 270);
+            this.butStatus.Location = new System.Drawing.Point(122, 277);
+            this.butStatus.Margin = new System.Windows.Forms.Padding(0);
             this.butStatus.Name = "butStatus";
             this.butStatus.PressedColor = System.Drawing.Color.White;
-            this.butStatus.RoundingArc = 30;
+            this.butStatus.RoundingArc = 25;
             this.butStatus.Size = new System.Drawing.Size(170, 30);
             this.butStatus.Style = MetroSuite.Design.Style.Custom;
             this.butStatus.TabIndex = 6;
