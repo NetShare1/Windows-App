@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net.Sockets;
+using System.Diagnostics;
 
 namespace NetShare
 {
@@ -19,7 +21,90 @@ namespace NetShare
         {
             InitializeComponent();
         }
+        public void Start()
+        {
+            try
+            {
+                butConnect.Text = "Connecting";
+                this.Refresh();
+                TcpClient client = new TcpClient("localhost", 5260);
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes("{\"type\":\"Put\",\"on\":\"driver.state\",\"data\":{ \"state\":\"running\"}}\n");
+                NetworkStream stream = client.GetStream();
+                stream.Write(data, 0, data.Length);
+                String responseData = String.Empty;
+                int crashed = 0;
 
+                while (true)
+                {
+                    Int32 bytes = stream.Read(data, 0, data.Length);
+                    responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+                    if (responseData.Contains("startup"))
+                    {
+                        Debug.WriteLine("Connecting");
+                    }
+                    else if (responseData.Contains("crashed"))
+                    {
+                        Debug.WriteLine("Crashed");
+                        if (crashed > 2)
+                        {
+                            Debug.WriteLine("Crashed More than 2 times");
+                            return;
+                        }
+                        client = new TcpClient("localhost", 5260);
+                        data = System.Text.Encoding.ASCII.GetBytes("{\"type\":\"Put\",\"on\":\"driver.state\",\"data\":{ \"state\":\"running\"}}\n");
+                        stream = client.GetStream();
+                        stream.Write(data, 0, data.Length);
+                        responseData = String.Empty;
+                        crashed++;
+                    }
+                    else if (responseData.Contains("running"))
+                    {
+                        Debug.WriteLine("Connected");
+                        butConnect.Text = "Disconnect";
+                        this.Refresh();
+                        data = System.Text.Encoding.ASCII.GetBytes("{\"type\":\"Put\",\"on\":\"connection.state\",\"data\":{ \"state\":\"closed\"}}\n");
+                        stream.Write(data, 0, data.Length);
+                        return;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+        }
+        public void Stop()
+        {
+            try
+            {
+                TcpClient client = new TcpClient("localhost", 5260);
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes("{\"type\":\"Put\",\"on\":\"driver.state\",\"data\":{ \"state\":\"stopped\"}}\n");
+                NetworkStream stream = client.GetStream();
+                stream.Write(data, 0, data.Length);
+                String responseData = String.Empty;
+
+                while (true)
+                {
+                    Int32 bytes = stream.Read(data, 0, data.Length);
+                    responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+
+                    if (responseData.Contains("stopped"))
+                    {
+                        Debug.WriteLine("Disconnected");
+                        butConnect.Text = "Connect";
+                        this.Refresh();
+                        data = System.Text.Encoding.ASCII.GetBytes("{\"type\":\"Put\",\"on\":\"connection.state\",\"data\":{ \"state\":\"closed\"}}\n");
+                        stream.Write(data, 0, data.Length);
+                        return;
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+        }
         public void setLocation()
         {
             if (Screen.PrimaryScreen.WorkingArea.Top > 0)
@@ -52,6 +137,18 @@ namespace NetShare
         {
             Deactivated = true;
             Hide();
+        }
+
+        private void butConnect_Click(object sender, EventArgs e)
+        {
+            if (butConnect.Text == "Connect")
+            {
+                Start();
+            }
+            else if (butConnect.Text == "Disconnect")
+            {
+                Stop();
+            }
         }
     }
 }

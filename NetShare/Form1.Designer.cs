@@ -53,22 +53,24 @@
             this.butConnect.ForeColor = System.Drawing.Color.White;
             this.butConnect.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.butConnect.IsRound = true;
-            this.butConnect.Location = new System.Drawing.Point(57, 480);
+            this.butConnect.Location = new System.Drawing.Point(38, 312);
             this.butConnect.Margin = new System.Windows.Forms.Padding(0);
             this.butConnect.Name = "butConnect";
             this.butConnect.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.butConnect.RoundingArc = 50;
-            this.butConnect.Size = new System.Drawing.Size(300, 50);
+            this.butConnect.RoundingArc = 32;
+            this.butConnect.Size = new System.Drawing.Size(200, 32);
             this.butConnect.Style = MetroSuite.Design.Style.Custom;
             this.butConnect.TabIndex = 1;
-            this.butConnect.Text = "Connect to 127.0.0.1";
+            this.butConnect.Text = "Connect";
+            this.butConnect.Click += new System.EventHandler(this.butConnect_Click);
             // 
             // red_background_rectangle
             // 
             this.red_background_rectangle.Image = ((System.Drawing.Image)(resources.GetObject("red_background_rectangle.Image")));
             this.red_background_rectangle.Location = new System.Drawing.Point(0, 0);
+            this.red_background_rectangle.Margin = new System.Windows.Forms.Padding(2);
             this.red_background_rectangle.Name = "red_background_rectangle";
-            this.red_background_rectangle.Size = new System.Drawing.Size(414, 454);
+            this.red_background_rectangle.Size = new System.Drawing.Size(276, 295);
             this.red_background_rectangle.TabIndex = 2;
             this.red_background_rectangle.TabStop = false;
             // 
@@ -76,9 +78,10 @@
             // 
             this.lock_open.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(96)))), ((int)(((byte)(91)))));
             this.lock_open.Image = ((System.Drawing.Image)(resources.GetObject("lock_open.Image")));
-            this.lock_open.Location = new System.Drawing.Point(132, 110);
+            this.lock_open.Location = new System.Drawing.Point(88, 71);
+            this.lock_open.Margin = new System.Windows.Forms.Padding(2);
             this.lock_open.Name = "lock_open";
-            this.lock_open.Size = new System.Drawing.Size(150, 150);
+            this.lock_open.Size = new System.Drawing.Size(100, 97);
             this.lock_open.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.lock_open.TabIndex = 3;
             this.lock_open.TabStop = false;
@@ -94,11 +97,12 @@
             this.butMenu.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.butMenu.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(96)))), ((int)(((byte)(91)))));
             this.butMenu.Icon = ((System.Drawing.Image)(resources.GetObject("butMenu.Icon")));
-            this.butMenu.Location = new System.Drawing.Point(12, 12);
+            this.butMenu.Location = new System.Drawing.Point(8, 8);
+            this.butMenu.Margin = new System.Windows.Forms.Padding(2);
             this.butMenu.Name = "butMenu";
             this.butMenu.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(96)))), ((int)(((byte)(91)))));
-            this.butMenu.RoundingArc = 30;
-            this.butMenu.Size = new System.Drawing.Size(30, 30);
+            this.butMenu.RoundingArc = 19;
+            this.butMenu.Size = new System.Drawing.Size(20, 19);
             this.butMenu.TabIndex = 4;
             // 
             // butStats
@@ -112,11 +116,12 @@
             this.butStats.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.butStats.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(96)))), ((int)(((byte)(91)))));
             this.butStats.Icon = ((System.Drawing.Image)(resources.GetObject("butStats.Icon")));
-            this.butStats.Location = new System.Drawing.Point(366, 12);
+            this.butStats.Location = new System.Drawing.Point(244, 8);
+            this.butStats.Margin = new System.Windows.Forms.Padding(2);
             this.butStats.Name = "butStats";
             this.butStats.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(96)))), ((int)(((byte)(91)))));
-            this.butStats.RoundingArc = 30;
-            this.butStats.Size = new System.Drawing.Size(36, 30);
+            this.butStats.RoundingArc = 19;
+            this.butStats.Size = new System.Drawing.Size(24, 19);
             this.butStats.TabIndex = 5;
             // 
             // butStatus
@@ -132,21 +137,22 @@
             this.butStatus.ForeColor = System.Drawing.Color.Black;
             this.butStatus.HoverColor = System.Drawing.Color.White;
             this.butStatus.IsRound = true;
-            this.butStatus.Location = new System.Drawing.Point(122, 270);
+            this.butStatus.Location = new System.Drawing.Point(81, 175);
+            this.butStatus.Margin = new System.Windows.Forms.Padding(2);
             this.butStatus.Name = "butStatus";
             this.butStatus.PressedColor = System.Drawing.Color.White;
-            this.butStatus.RoundingArc = 30;
-            this.butStatus.Size = new System.Drawing.Size(170, 30);
+            this.butStatus.RoundingArc = 19;
+            this.butStatus.Size = new System.Drawing.Size(113, 19);
             this.butStatus.Style = MetroSuite.Design.Style.Custom;
             this.butStatus.TabIndex = 6;
             this.butStatus.Text = "Not Connected";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(414, 564);
+            this.ClientSize = new System.Drawing.Size(276, 367);
             this.Controls.Add(this.butStatus);
             this.Controls.Add(this.butStats);
             this.Controls.Add(this.butMenu);
@@ -154,6 +160,7 @@
             this.Controls.Add(this.butConnect);
             this.Controls.Add(this.red_background_rectangle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.ShowInTaskbar = false;
@@ -174,7 +181,6 @@
         private MetroSuite.MetroButton butMenu;
         private MetroSuite.MetroButton butStats;
         private MetroSuite.MetroButton butStatus;
-
     }
 }
 
