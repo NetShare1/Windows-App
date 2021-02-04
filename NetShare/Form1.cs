@@ -20,6 +20,7 @@ namespace NetShare
 
         ConnectButton connectButton = new ConnectButton();
         ListBox serverList = new ListBox();
+        PictureBox loadingAnimation = new PictureBox();
 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn (int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
@@ -67,13 +68,24 @@ namespace NetShare
 
             Controls.Add(connectButton);
 
+            // Loading-Animation Settings
+            loadingAnimation.BackColor = Color.White;
+            loadingAnimation.Location = new Point(123, 112);
+            loadingAnimation.Size = new Size(104, 105);
+            loadingAnimation.Image = Image.FromFile("../../Resources/loading.gif");
+            loadingAnimation.SizeMode = PictureBoxSizeMode.Zoom;
+
+            Controls.Add(loadingAnimation);
+            loadingAnimation.Hide();
+
+            //
             InitializeComponent();
             Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
             startClickEvent();
         }
 
         // Manually Draw of ListItems
-        void listBox_DrawItem(object sender, DrawItemEventArgs e)
+        private void listBox_DrawItem(object sender, DrawItemEventArgs e)
         {
             ListBox list = (ListBox)sender;
             if (e.Index > -1)
@@ -123,13 +135,39 @@ namespace NetShare
                         isClicked = false;
                         connectButton.IsOpen = false;
                     }
-                } else
+                } 
+                else
                 {
+                    // ClickEvent to Connect to Server
                     if (chosenServer.Length > 0)
                     {
                         connectButton.IsConnecting = true;
+
+                        // Change Button 
                         connectButton.ButtonColor = Color.FromArgb(176, 190, 197);
                         connectButton.Text = "Connecting to " + chosenServer.Substring(11);
+
+                        // Set Blue-Background and Connecting-Animation
+                        formBackground.Image = Image.FromFile("../../Resources/blue_background_rectangle.png");
+                        connectionStatusPicture.Image = Image.FromFile("../../Resources/connecting_roundBackground.png");
+                        connectionStatusText.Text = "Connecting...";
+
+                        loadingAnimation.BringToFront();
+                        loadingAnimation.Show();
+
+                        // Set Blue Color at every Control
+                        butOpenMenu.PressedColor = Color.FromArgb(60, 195, 248);
+                        butOpenMenu.DefaultColor = Color.FromArgb(60, 195, 248);
+                        butOpenMenu.HoverColor = Color.FromArgb(60, 195, 248);
+                        butOpenMenu.BackColor = Color.FromArgb(60, 195, 248);
+
+                        butShowInfos.PressedColor = Color.FromArgb(60, 195, 248);
+                        butShowInfos.DefaultColor = Color.FromArgb(60, 195, 248);
+                        butShowInfos.HoverColor = Color.FromArgb(60, 195, 248);
+                        butShowInfos.BackColor = Color.FromArgb(60, 195, 248);
+
+                        connectionStatusText.BackColor = Color.FromArgb(60, 195, 248);
+                        connectionStatusPicture.BackColor = Color.FromArgb(60, 195, 248);
                     }
                 }
             }
@@ -140,6 +178,7 @@ namespace NetShare
             isClickedOnArrow = true;
         }
 
+        // Set Location of Form depending on the Taskbar´s Location
         public void setLocation()
         {
             if (Screen.PrimaryScreen.WorkingArea.Top > 0)
@@ -168,6 +207,7 @@ namespace NetShare
             }
         }
 
+        // Hide and Reset the Form by Clicking outside of the Form
         private void Form1_Deactivate(object sender, EventArgs e)
         {
             serverList.Hide();
@@ -186,7 +226,6 @@ namespace NetShare
                 ctl.MouseClick += new MouseEventHandler(Form1_Click);
             }
         }
-
         private void Form1_Click(object sender, EventArgs e)
         {
             if (!isClickedOnArrow)

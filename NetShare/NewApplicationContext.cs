@@ -5,7 +5,6 @@ using System.Windows.Forms;
 /*
  * name: Grafl Martin
  * class: 5AHIF
- * number: i16022
 */
 
 namespace NetShare
