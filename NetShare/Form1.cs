@@ -39,9 +39,10 @@ namespace NetShare
             serverList.ItemHeight = 35;
 
             // Manually fill the ListBox for Demo
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 10; i++)
             {
-                serverList.Items.Add("Connect to 127.0.0." + i);
+                serverList.Items.Add("127.100.100.10" + i);
+                serverList.Items.Add("127.0.0." + i);
             }
 
             serverList.SelectedIndexChanged += serverList_SelectedIndexChanged;
@@ -108,7 +109,8 @@ namespace NetShare
         {
             serverList.Hide();
             chosenServer = serverList.GetItemText(serverList.SelectedItem);
-            connectButton.Text = chosenServer;
+            connectButton.Font = new Font("Century Gothic", 11.25f, FontStyle.Bold);
+            connectButton.Text = "Connect to " + chosenServer;
             connectButton.ButtonColor = Color.FromArgb(67, 160, 71);
             isClicked = false;
             connectButton.IsOpen = false;
@@ -117,59 +119,156 @@ namespace NetShare
         // Eventlistener for Clicking on connectButton
         private void connectButton_MouseUp(object sender, MouseEventArgs e)
         {
-            isClickedOnArrow = false;
-
-            if (e.Button == MouseButtons.Left)
+            if (!connectButton.IsConnected) // Check if Client is not Connected
             {
-                if (MousePosition.X > 1820)
+                isClickedOnArrow = false;
+
+                if (e.Button == MouseButtons.Left)
                 {
-                    if (!isClicked)
+                    if (MousePosition.X > 1820)
                     {
-                        serverList.Show();
-                        isClicked = true;
-                        connectButton.IsOpen = true;
+                        if (!isClicked)
+                        {
+                            serverList.Show();
+                            isClicked = true;
+                            connectButton.IsOpen = true;
+                        }
+                        else
+                        {
+                            serverList.Hide();
+                            isClicked = false;
+                            connectButton.IsOpen = false;
+                        }
                     }
                     else
                     {
-                        serverList.Hide();
-                        isClicked = false;
-                        connectButton.IsOpen = false;
-                    }
-                } 
-                else
-                {
-                    // ClickEvent to Connect to Server
-                    if (chosenServer.Length > 0)
-                    {
-                        connectButton.IsConnecting = true;
+                        // ClickEvent to Connect to Server
+                        if (chosenServer.Length > 0)
+                        {
+                            connectButton.IsConnecting = true;
+                            serverList.Hide();
+                            isClicked = false;
+                            connectButton.IsOpen = false;
 
-                        // Change Button 
-                        connectButton.ButtonColor = Color.FromArgb(176, 190, 197);
-                        connectButton.Text = "Connecting to " + chosenServer.Substring(11);
+                            // Change Button 
+                            connectButton.ButtonColor = Color.FromArgb(176, 190, 197);
+                            connectButton.Text = "Connecting to " + chosenServer;
 
-                        // Set Blue-Background and Connecting-Animation
-                        formBackground.Image = Image.FromFile("../../Resources/blue_background_rectangle.png");
-                        connectionStatusPicture.Image = Image.FromFile("../../Resources/connecting_roundBackground.png");
-                        connectionStatusText.Text = "Connecting...";
+                            // Set Blue-Background and Connecting-Animation
+                            formBackground.Image = Image.FromFile("../../Resources/blue_background_rectangle.png");
+                            connectionStatusPicture.Image = Image.FromFile("../../Resources/connecting_roundBackground.png");
+                            connectionStatusText.Text = "Connecting...";
 
-                        loadingAnimation.BringToFront();
-                        loadingAnimation.Show();
+                            loadingAnimation.BringToFront();
+                            loadingAnimation.Show();
 
-                        // Set Blue Color at every Control
-                        butOpenMenu.PressedColor = Color.FromArgb(60, 195, 248);
-                        butOpenMenu.DefaultColor = Color.FromArgb(60, 195, 248);
-                        butOpenMenu.HoverColor = Color.FromArgb(60, 195, 248);
-                        butOpenMenu.BackColor = Color.FromArgb(60, 195, 248);
+                            // Set Blue Color at every Control
+                            butOpenMenu.PressedColor = Color.FromArgb(60, 195, 248);
+                            butOpenMenu.DefaultColor = Color.FromArgb(60, 195, 248);
+                            butOpenMenu.HoverColor = Color.FromArgb(60, 195, 248);
+                            butOpenMenu.BackColor = Color.FromArgb(60, 195, 248);
 
-                        butShowInfos.PressedColor = Color.FromArgb(60, 195, 248);
-                        butShowInfos.DefaultColor = Color.FromArgb(60, 195, 248);
-                        butShowInfos.HoverColor = Color.FromArgb(60, 195, 248);
-                        butShowInfos.BackColor = Color.FromArgb(60, 195, 248);
+                            butShowInfos.PressedColor = Color.FromArgb(60, 195, 248);
+                            butShowInfos.DefaultColor = Color.FromArgb(60, 195, 248);
+                            butShowInfos.HoverColor = Color.FromArgb(60, 195, 248);
+                            butShowInfos.BackColor = Color.FromArgb(60, 195, 248);
 
-                        connectionStatusText.BackColor = Color.FromArgb(60, 195, 248);
-                        connectionStatusPicture.BackColor = Color.FromArgb(60, 195, 248);
+                            connectionStatusText.BackColor = Color.FromArgb(60, 195, 248);
+                            connectionStatusPicture.BackColor = Color.FromArgb(60, 195, 248);
+
+                            // Wait only for Demo-Purposes!
+                            wait(2000);
+
+                            // Call Function to Change Style to Connected
+                            connectButton.IsConnected = true;
+                            connectButton.IsConnecting = false;
+                            changeFormStyleToConnected();
+                        }
                     }
                 }
+            }
+            else // Check if Client is Connected
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    // ClickEvent to Disconnect from Server
+
+                    // TODO!
+
+
+                    // At Successfull Disconnect: 
+                    //connectButton.IsConnected = false;
+                }
+            }
+        }
+
+        // Function to Change Style to Connected
+        private void changeFormStyleToConnected()
+        {
+            // Change Button 
+            connectButton.ButtonColor = Color.FromArgb(244, 67, 54);
+            connectButton.Text = "Disconnect";
+
+            // Set Green-Background, Connected-Image and Text
+            formBackground.Image = Image.FromFile("../../Resources/green_background_rectangle.png");
+            connectionStatusPicture.Image = Image.FromFile("../../Resources/connected_roundBackground.png");
+            butShowInfos.Icon = Image.FromFile("../../Resources/con_full.png");
+
+            if (chosenServer.Length > 9)
+            {
+                connectionStatusText.Width = 250;
+                connectionStatusText.Location = new Point(50, 248);
+            } 
+            else
+            {
+                connectionStatusText.Width = 200;
+                connectionStatusText.Location = new Point(75, 248);
+            }
+
+            connectionStatusText.ForeColor = Color.White;
+            connectionStatusText.DefaultColor = Color.FromArgb(118, 210, 117);
+            connectionStatusText.DisabledColor = Color.FromArgb(118, 210, 117);
+            connectionStatusText.HoverColor = Color.FromArgb(118, 210, 117);
+            connectionStatusText.PressedColor = Color.FromArgb(118, 210, 117);
+            connectionStatusText.Text = "Connected to " + chosenServer;
+
+            // Hide Loading-Animation
+            loadingAnimation.Hide();
+
+            // Set Green Color at every Control
+            butOpenMenu.PressedColor = Color.FromArgb(81, 172, 82);
+            butOpenMenu.DefaultColor = Color.FromArgb(81, 172, 82);
+            butOpenMenu.HoverColor = Color.FromArgb(81, 172, 82);
+            butOpenMenu.BackColor = Color.FromArgb(81, 172, 82);
+
+            butShowInfos.PressedColor = Color.FromArgb(81, 172, 82);
+            butShowInfos.DefaultColor = Color.FromArgb(81, 172, 82);
+            butShowInfos.HoverColor = Color.FromArgb(81, 172, 82);
+            butShowInfos.BackColor = Color.FromArgb(81, 172, 82);
+
+            connectionStatusText.BackColor = Color.FromArgb(81, 172, 82);
+            connectionStatusPicture.BackColor = Color.FromArgb(81, 172, 82);
+        }
+
+        // Wait-Function from Internet only for Demo-Purposes!
+        private void wait(int milliseconds)
+        {
+            var timer1 = new System.Windows.Forms.Timer();
+            if (milliseconds == 0 || milliseconds < 0) return;
+
+            timer1.Interval = milliseconds;
+            timer1.Enabled = true;
+            timer1.Start();
+
+            timer1.Tick += (s, e) =>
+            {
+                timer1.Enabled = false;
+                timer1.Stop();
+            };
+
+            while (timer1.Enabled)
+            {
+                Application.DoEvents();
             }
         }
 

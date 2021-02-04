@@ -16,6 +16,7 @@ namespace NetShare
         private Color _textColor = Color.White;
         private bool _isOpen = false;
         private bool _isConnecting = false;
+        private bool _isConnected = false;
 
         // Getter and Setter
         public ListBox List { get; set; }
@@ -56,6 +57,16 @@ namespace NetShare
             set
             {
                 _isConnecting = value;
+                Invalidate();
+            }
+        }
+
+        public bool IsConnected
+        {
+            get => _isConnected;
+            set
+            {
+                _isConnected = value;
                 Invalidate();
             }
         }
@@ -101,7 +112,14 @@ namespace NetShare
             using (GraphicsPath GraphPath = GetRoundPath(Rect, 15))
             {
                 paintEvent.Graphics.FillPath(buttonBrush, GraphPath);
-                paintEvent.Graphics.DrawString(Text, Font, textBrush, (Width - textSize.Width) / 2, (Height - textSize.Height) / 2);
+                if (!_isConnecting)
+                {
+                    paintEvent.Graphics.DrawString(Text, Font, textBrush, (Width - textSize.Width) / 2, (Height - textSize.Height) / 2);
+                } 
+                else
+                {
+                    paintEvent.Graphics.DrawString(Text, Font, textBrush, (Width - textSize.Width) / 2 + 5, (Height - textSize.Height) / 2);
+                }
             }
 
             // Draw Arrow in Button
@@ -110,7 +128,7 @@ namespace NetShare
                 Icon arrowLeft = null;
                 int arrowX = 0;
                 int arrowY = 0;
-                if (!_isConnecting)
+                if (!_isConnecting && !_isConnected)
                 {
                     if (!_isOpen)
                     {
