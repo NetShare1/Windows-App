@@ -714,4 +714,19 @@
         4QAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="butMenuClose.Icon" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAABGdBTUEAALGPC/xhBQAAAHpJREFUOE+d
+        kksKwCAMRL1EoUfowt5/VbxDu+hx2hlRyCIfycBgNC9GxQIdcIN3TgJt8AWfnDD44AdmwhJzZMiypi/c
+        Y+GFtc4m4xWHG2vAymm6CM57cJQxc65kl7CTVKowdVTZaflxPMDMhbtCKpP+cnUEXtEUGbCl/jQcQxcu
+        YnVDAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="butMenuReturn.Icon" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAFlJREFUOE9j
+        IAAagLgDwiQdgDT/B+I/QKwLEiAFIGuOAQmQAgaH5miQACmAKprJxQzlaAKkYjCAGUJW4MEAsiEkhwMM
+        DDNDYNH7G4i1QQLkAJAhIIwDMDAAAP0LQmKco50vAAAAAElFTkSuQmCC
+</value>
+  </data>
 </root>

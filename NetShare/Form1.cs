@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 /*
  * name: Manuel Lind
@@ -19,6 +20,8 @@ namespace NetShare
         ConnectButton connectButton = new ConnectButton();
         ListBox serverList = new ListBox();
         PictureBox loadingAnimation = new PictureBox();
+        PictureBox menuItems = new PictureBox();
+        PictureBox menuItemHeader = new PictureBox();
 
         public static bool Deactivated = false;
         bool isClicked = false;
@@ -43,7 +46,7 @@ namespace NetShare
             textConInfos.Hide();
 
             // Connection Info Demo
-            textConInfos.Text = "10 ms\r\n1000 MB/s";
+            textConInfos.Text = "10 ms\r\n1000 Mb/s";
         }
 
         private void confControls()
@@ -93,6 +96,27 @@ namespace NetShare
 
             Controls.Add(loadingAnimation);
             loadingAnimation.Hide();
+
+            // Menu-Items Settings
+            menuItems.BackColor = Color.White;
+            menuItems.Location = new Point(10, 110);
+            menuItems.Size = new Size(340, 250);
+            menuItems.Image = Image.FromFile("../../Resources/menuItems.png");
+            menuItems.SizeMode = PictureBoxSizeMode.Zoom;
+
+            menuItems.Click += menuItems_Click;
+
+            Controls.Add(menuItems);
+            menuItems.Hide();
+
+            // MenuItem-Header Settings
+            menuItemHeader.BackColor = Color.White;
+            menuItemHeader.Location = new Point(53, 3);
+            menuItemHeader.Size = new Size(320, 50);
+            menuItemHeader.SizeMode = PictureBoxSizeMode.Zoom;
+
+            Controls.Add(menuItemHeader);
+            menuItemHeader.Hide();
         }
 
         // Manually Draw of ListItems
@@ -414,17 +438,133 @@ namespace NetShare
             }
         }
 
-        private void clearForm()
+        // Hide whole Form
+        private void hideForm()
         {
-            foreach (Control ctl in Controls)
+            formBackground.Hide();
+            connectButton.Hide();
+            connectionStatusText.Hide();
+            connectionStatusPicture.Hide();
+            butShowInfos.Hide();
+            butOpenMenu.Hide();
+        }
+
+        // Show whole From again
+        private void showForm()
+        {
+            formBackground.Show();
+            connectButton.Show();
+            connectionStatusText.Show();
+            connectionStatusPicture.Show();
+            butShowInfos.Show();
+            butOpenMenu.Show();
+        }
+
+        // Show Menu
+        private void showMenu()
+        {
+            menuItems.Show();
+            butMenuClose.Visible = true;
+        }
+
+        // Hide Menu
+        private void hideMenu()
+        {
+            menuItems.Hide();
+            butMenuClose.Visible = false;
+        }
+
+        // Click to open Menu
+        private void butOpenMenu_Click(object sender, EventArgs e)
+        {
+            if (!connectButton.IsConnecting)
             {
-                ctl.Hide();
+                hideForm();
+                showMenu();
             }
         }
 
-        private void butOpenMenu_Click(object sender, EventArgs e)
+        // Click to Close Menu
+        private void butMenuClose_Click(object sender, EventArgs e)
         {
-            //clearForm();
+            hideMenu();
+            showForm();
+        }
+
+        // ClickEventHandler for MenuItems
+        private void menuItems_Click(object sender, EventArgs e)
+        {
+            if (MousePosition.Y > 700 && MousePosition.Y < 740) // MenuItem: Mode
+            {
+                hideMenu();
+                showMenuItemMode();
+            }
+            else if (MousePosition.Y > 750 && MousePosition.Y < 790) // MenuItem: Server
+            {
+                hideMenu();
+                showMenuItemServer();
+            }
+            else if (MousePosition.Y > 805 && MousePosition.Y < 845) // MenuItem: Network Devices
+            {
+                hideMenu();
+                showMenuItemNetworkDevices();
+            }
+        }
+
+        private void butMenuReturn_Click(object sender, EventArgs e)
+        {
+            hideMenuItemMode();
+            hideMenuItemServer();
+            hideMenuItemNetworkDevices();
+            showMenu();
+        }
+
+        // Show Menu Item "Mode"
+        private void showMenuItemMode()
+        {
+            butMenuReturn.Visible = true;
+            menuItemHeader.Image = Image.FromFile("../../Resources/modeHeader.png");
+            menuItemHeader.Show();
+        }
+
+        // Hide Menu Item "Mode"
+        private void hideMenuItemMode()
+        {
+            butMenuReturn.Visible = false;
+            menuItemHeader.Image = null;
+            menuItemHeader.Hide();
+        }
+
+        // Show Menu Item "Server"
+        private void showMenuItemServer()
+        {
+            butMenuReturn.Visible = true;
+            menuItemHeader.Image = Image.FromFile("../../Resources/serverHeader.png");
+            menuItemHeader.Show();
+        }
+
+        // Hide Menu Item "Server"
+        private void hideMenuItemServer()
+        {
+            butMenuReturn.Visible = false;
+            menuItemHeader.Image = null;
+            menuItemHeader.Hide();
+        }
+
+        // Show Menu Item "Network Devices"
+        private void showMenuItemNetworkDevices()
+        {
+            butMenuReturn.Visible = true;
+            menuItemHeader.Image = Image.FromFile("../../Resources/networkDevicesHeader.png");
+            menuItemHeader.Show();
+        }
+
+        // Hide Menu Item "Network Devices"
+        private void hideMenuItemNetworkDevices()
+        {
+            butMenuReturn.Visible = false;
+            menuItemHeader.Image = null;
+            menuItemHeader.Hide();
         }
     }
 }

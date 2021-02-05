@@ -35,6 +35,8 @@
             this.connectionStatusPicture = new System.Windows.Forms.PictureBox();
             this.connectionStatusText = new MetroSuite.MetroButton();
             this.textConInfos = new MetroSuite.MetroTextbox();
+            this.butMenuClose = new MetroSuite.MetroButton();
+            this.butMenuReturn = new MetroSuite.MetroButton();
             ((System.ComponentModel.ISupportInitialize)(this.formBackground)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.connectionStatusPicture)).BeginInit();
             this.SuspendLayout();
@@ -145,12 +147,56 @@
             this.textConInfos.TabIndex = 5;
             this.textConInfos.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // butMenuClose
+            // 
+            this.butMenuClose.BackColor = System.Drawing.Color.White;
+            this.butMenuClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.butMenuClose.BorderColor = System.Drawing.Color.Transparent;
+            this.butMenuClose.DefaultColor = System.Drawing.Color.White;
+            this.butMenuClose.DisabledColor = System.Drawing.Color.Transparent;
+            this.butMenuClose.DrawBorder = false;
+            this.butMenuClose.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.butMenuClose.ForeColor = System.Drawing.Color.Transparent;
+            this.butMenuClose.HoverColor = System.Drawing.Color.White;
+            this.butMenuClose.Icon = ((System.Drawing.Image)(resources.GetObject("butMenuClose.Icon")));
+            this.butMenuClose.Location = new System.Drawing.Point(11, 15);
+            this.butMenuClose.Name = "butMenuClose";
+            this.butMenuClose.PressedColor = System.Drawing.Color.White;
+            this.butMenuClose.RoundingArc = 20;
+            this.butMenuClose.Size = new System.Drawing.Size(25, 20);
+            this.butMenuClose.TabIndex = 6;
+            this.butMenuClose.Visible = false;
+            this.butMenuClose.Click += new System.EventHandler(this.butMenuClose_Click);
+            // 
+            // butMenuReturn
+            // 
+            this.butMenuReturn.BackColor = System.Drawing.Color.White;
+            this.butMenuReturn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.butMenuReturn.BorderColor = System.Drawing.Color.Transparent;
+            this.butMenuReturn.DefaultColor = System.Drawing.Color.White;
+            this.butMenuReturn.DisabledColor = System.Drawing.Color.Transparent;
+            this.butMenuReturn.DrawBorder = false;
+            this.butMenuReturn.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.butMenuReturn.ForeColor = System.Drawing.Color.Transparent;
+            this.butMenuReturn.HoverColor = System.Drawing.Color.White;
+            this.butMenuReturn.Icon = ((System.Drawing.Image)(resources.GetObject("butMenuReturn.Icon")));
+            this.butMenuReturn.Location = new System.Drawing.Point(11, 15);
+            this.butMenuReturn.Name = "butMenuReturn";
+            this.butMenuReturn.PressedColor = System.Drawing.Color.White;
+            this.butMenuReturn.RoundingArc = 25;
+            this.butMenuReturn.Size = new System.Drawing.Size(30, 25);
+            this.butMenuReturn.TabIndex = 7;
+            this.butMenuReturn.Visible = false;
+            this.butMenuReturn.Click += new System.EventHandler(this.butMenuReturn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(350, 500);
+            this.Controls.Add(this.butMenuReturn);
+            this.Controls.Add(this.butMenuClose);
             this.Controls.Add(this.textConInfos);
             this.Controls.Add(this.connectionStatusText);
             this.Controls.Add(this.connectionStatusPicture);
@@ -182,6 +228,8 @@
         private System.Windows.Forms.PictureBox connectionStatusPicture;
         private MetroSuite.MetroButton connectionStatusText;
         private MetroSuite.MetroTextbox textConInfos;
+        private MetroSuite.MetroButton butMenuClose;
+        private MetroSuite.MetroButton butMenuReturn;
     }
 }
 
