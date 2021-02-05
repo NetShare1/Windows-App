@@ -34,6 +34,7 @@
             this.butShowInfos = new MetroSuite.MetroButton();
             this.connectionStatusPicture = new System.Windows.Forms.PictureBox();
             this.connectionStatusText = new MetroSuite.MetroButton();
+            this.textConInfos = new MetroSuite.MetroTextbox();
             ((System.ComponentModel.ISupportInitialize)(this.formBackground)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.connectionStatusPicture)).BeginInit();
             this.SuspendLayout();
@@ -68,6 +69,7 @@
             this.butOpenMenu.RoundingArc = 30;
             this.butOpenMenu.Size = new System.Drawing.Size(30, 30);
             this.butOpenMenu.TabIndex = 1;
+            this.butOpenMenu.Click += new System.EventHandler(this.butOpenMenu_Click);
             // 
             // butShowInfos
             // 
@@ -87,6 +89,8 @@
             this.butShowInfos.RoundingArc = 30;
             this.butShowInfos.Size = new System.Drawing.Size(35, 30);
             this.butShowInfos.TabIndex = 2;
+            this.butShowInfos.MouseEnter += new System.EventHandler(this.butShowInfos_MouseEnter);
+            this.butShowInfos.MouseLeave += new System.EventHandler(this.butShowInfos_MouseLeave);
             // 
             // connectionStatusPicture
             // 
@@ -120,17 +124,40 @@
             this.connectionStatusText.TabIndex = 4;
             this.connectionStatusText.Text = "Not Connected";
             // 
+            // textConInfos
+            // 
+            this.textConInfos.AutoStyle = false;
+            this.textConInfos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(96)))), ((int)(((byte)(91)))));
+            this.textConInfos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.textConInfos.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(96)))), ((int)(((byte)(91)))));
+            this.textConInfos.DefaultColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(96)))), ((int)(((byte)(91)))));
+            this.textConInfos.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(96)))), ((int)(((byte)(91)))));
+            this.textConInfos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textConInfos.ForeColor = System.Drawing.Color.White;
+            this.textConInfos.HideSelection = false;
+            this.textConInfos.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(96)))), ((int)(((byte)(91)))));
+            this.textConInfos.Location = new System.Drawing.Point(230, 4);
+            this.textConInfos.Multiline = true;
+            this.textConInfos.Name = "textConInfos";
+            this.textConInfos.PasswordChar = '\0';
+            this.textConInfos.Size = new System.Drawing.Size(75, 45);
+            this.textConInfos.Style = MetroSuite.Design.Style.Custom;
+            this.textConInfos.TabIndex = 5;
+            this.textConInfos.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(350, 500);
+            this.Controls.Add(this.textConInfos);
             this.Controls.Add(this.connectionStatusText);
             this.Controls.Add(this.connectionStatusPicture);
             this.Controls.Add(this.butShowInfos);
             this.Controls.Add(this.butOpenMenu);
             this.Controls.Add(this.formBackground);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
@@ -154,6 +181,7 @@
         private MetroSuite.MetroButton butShowInfos;
         private System.Windows.Forms.PictureBox connectionStatusPicture;
         private MetroSuite.MetroButton connectionStatusText;
+        private MetroSuite.MetroTextbox textConInfos;
     }
 }
 
