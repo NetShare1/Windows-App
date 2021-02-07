@@ -22,6 +22,12 @@ namespace NetShare
         PictureBox loadingAnimation = new PictureBox();
         PictureBox menuItems = new PictureBox();
         PictureBox menuItemHeader = new PictureBox();
+        PictureBox performanceBasedText = new PictureBox();
+        PictureBox addServerBack = new PictureBox();
+        PictureBox listServerBack = new PictureBox();
+        ListBox serverCheckList = new ListBox();
+        PictureBox listNetDevBack = new PictureBox();
+        ListBox netDevList = new ListBox();
 
         public static bool Deactivated = false;
         bool isClicked = false;
@@ -43,7 +49,6 @@ namespace NetShare
             InitializeComponent();
             Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10)); // rounded corners Form
             clickOutsideListBox();
-            textConInfos.Hide();
 
             // Connection Info Demo
             textConInfos.Text = "10 ms\r\n1000 Mb/s";
@@ -58,7 +63,7 @@ namespace NetShare
             serverList.Font = new Font("Century Gothic", 12, FontStyle.Regular);
 
             serverList.DrawMode = DrawMode.OwnerDrawFixed;
-            serverList.DrawItem += listBox_DrawItem;
+            serverList.DrawItem += serverList_DrawItem;
             serverList.DrawMode = DrawMode.OwnerDrawVariable;
             serverList.ItemHeight = 35;
 
@@ -117,10 +122,126 @@ namespace NetShare
 
             Controls.Add(menuItemHeader);
             menuItemHeader.Hide();
+
+            // performanceBasedText Settings
+            performanceBasedText.BackColor = Color.White;
+            performanceBasedText.Location = new Point(15, 70);
+            performanceBasedText.Size = new Size(320, 200);
+            performanceBasedText.Image = Image.FromFile("../../Resources/performanceBasedText.png");
+            performanceBasedText.SizeMode = PictureBoxSizeMode.Zoom;
+
+            Controls.Add(performanceBasedText);
+            performanceBasedText.Hide();
+
+            // addServerBackground Settings
+            addServerBack.BackColor = Color.White;
+            addServerBack.Location = new Point(16, 70);
+            addServerBack.Size = new Size(320, 160);
+            addServerBack.Image = Image.FromFile("../../Resources/addServerBack.png");
+            addServerBack.SizeMode = PictureBoxSizeMode.Zoom;
+
+            Controls.Add(addServerBack);
+            addServerBack.Hide();
+
+            // listServerBackground Settings
+            listServerBack.BackColor = Color.White;
+            listServerBack.Location = new Point(18, 232);
+            listServerBack.Size = new Size(320, 260);
+            listServerBack.Image = Image.FromFile("../../Resources/listServerBack.png");
+            listServerBack.SizeMode = PictureBoxSizeMode.Zoom;
+
+            Controls.Add(listServerBack);
+            listServerBack.Hide();
+
+            //serverCheckedList Settings
+            serverCheckList.BorderStyle = BorderStyle.None;
+            serverCheckList.Font = new Font("Century Gothic", 12, FontStyle.Regular);
+            serverCheckList.Location = new Point(40, 295);
+            serverCheckList.Size = new Size(270, 130);
+
+            serverCheckList.DrawMode = DrawMode.OwnerDrawFixed;
+            serverCheckList.DrawItem += serverCheckList_DrawItem;
+            serverCheckList.DrawMode = DrawMode.OwnerDrawVariable;
+            serverCheckList.ItemHeight = 30;
+
+            // For Demo-Purposes
+            serverCheckList.Items.Add("Heim-Server");
+            serverCheckList.Items.Add("Arbeits-Server");
+            serverCheckList.Items.Add("Firmen-Server");
+            serverCheckList.Items.Add("Schul-Server");
+            serverCheckList.Items.Add("Test1-Server");
+            serverCheckList.Items.Add("Test2-Server");
+
+            Controls.Add(serverCheckList);
+            serverCheckList.Hide();
+
+            // listNetDevBackground Settings
+            listNetDevBack.BackColor = Color.White;
+            listNetDevBack.Location = new Point(16, 70);
+            listNetDevBack.Size = new Size(320, 400);
+            listNetDevBack.Image = Image.FromFile("../../Resources/listNetDevBack.png");
+            listNetDevBack.SizeMode = PictureBoxSizeMode.Zoom;
+
+            Controls.Add(listNetDevBack);
+            listNetDevBack.Hide();
+
+            // listNetworkDevices Settings
+            netDevList.BorderStyle = BorderStyle.None;
+            netDevList.Font = new Font("Century Gothic", 12, FontStyle.Regular);
+            netDevList.Location = new Point(38, 132);
+            netDevList.Size = new Size(270, 310);
+            netDevList.SelectionMode = SelectionMode.MultiSimple;
+
+            netDevList.DrawMode = DrawMode.OwnerDrawFixed;
+            netDevList.DrawItem += netDevList_DrawItem;
+            netDevList.DrawMode = DrawMode.OwnerDrawVariable;
+            netDevList.ItemHeight = 30;
+
+            // For Demo-Purposes
+            netDevList.Items.Add("HTL-WLAN");
+            netDevList.Items.Add("AP von Lind");
+            netDevList.Items.Add("The Cake");
+            netDevList.Items.Add("The Cake2");
+            netDevList.Items.Add("Grafl-Wifi");
+            netDevList.Items.Add("HTL-Guests");
+
+            Controls.Add(netDevList);
+            netDevList.Hide();
+        }
+
+        // Manually Draw of ListItems of ServerList in Menu
+        private void netDevList_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            DrawItem(sender, e);
+        }
+
+        // Manually Draw of ListItems of ServerList in Menu
+        private void serverCheckList_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            DrawItem(sender, e);
         }
 
         // Manually Draw of ListItems
-        private void listBox_DrawItem(object sender, DrawItemEventArgs e)
+        private void DrawItem(object sender, DrawItemEventArgs e)
+        {
+            ListBox list = (ListBox)sender;
+            if (e.Index > -1)
+            {
+                if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+                {
+                    e = new DrawItemEventArgs(e.Graphics, new Font("Century Gothic", 13, FontStyle.Bold), e.Bounds, e.Index, e.State ^ DrawItemState.Selected, Color.FromArgb(41, 182, 246), Color.White);
+                }
+                object item = list.Items[e.Index];
+                e.DrawBackground();
+                e.DrawFocusRectangle();
+                Brush brush = new SolidBrush(e.ForeColor);
+                SizeF size = e.Graphics.MeasureString(item.ToString(), e.Font);
+                e.Graphics.DrawString(item.ToString(), e.Font, brush, e.Bounds.Left, e.Bounds.Top);
+            }
+        }
+
+        // Manually Draw of ListItems of ServerList at Connect
+        private void serverList_DrawItem(object sender, DrawItemEventArgs e)
         {
             ListBox list = (ListBox)sender;
             if (e.Index > -1)
@@ -156,6 +277,7 @@ namespace NetShare
         }
 
         // Eventlistener for Clicking on connectButton
+
         private void connectButton_MouseUp(object sender, MouseEventArgs e)
         {
             // Check if Client is Connected
@@ -511,6 +633,7 @@ namespace NetShare
             }
         }
 
+        // Button to get back to Menu-Items-Overview
         private void butMenuReturn_Click(object sender, EventArgs e)
         {
             hideMenuItemMode();
@@ -525,6 +648,11 @@ namespace NetShare
             butMenuReturn.Visible = true;
             menuItemHeader.Image = Image.FromFile("../../Resources/modeHeader.png");
             menuItemHeader.Show();
+            performanceBasedText.Show();
+            butPerfBased.IsRound = true;
+            butPerfBased.RoundingArc = 10;
+            butPerfBased.BringToFront();
+            butPerfBased.Show();
         }
 
         // Hide Menu Item "Mode"
@@ -533,6 +661,8 @@ namespace NetShare
             butMenuReturn.Visible = false;
             menuItemHeader.Image = null;
             menuItemHeader.Hide();
+            performanceBasedText.Hide();
+            butPerfBased.Hide();
         }
 
         // Show Menu Item "Server"
@@ -541,6 +671,29 @@ namespace NetShare
             butMenuReturn.Visible = true;
             menuItemHeader.Image = Image.FromFile("../../Resources/serverHeader.png");
             menuItemHeader.Show();
+
+            addNameInput.BringToFront();
+            addIPInput.BringToFront();
+            addPortInput.BringToFront();
+
+            addServerBack.Show();
+            addNameInput.Show();
+            addIPInput.Show();
+            addPortInput.Show();
+
+            butAddServer.IsRound = true;
+            butAddServer.RoundingArc = 10;
+            butAddServer.BringToFront();
+            butAddServer.Show();
+
+            listServerBack.Show();
+            serverCheckList.BringToFront();
+            serverCheckList.Show();
+
+            butDeleteServer.IsRound = true;
+            butDeleteServer.RoundingArc = 10;
+            butDeleteServer.BringToFront();
+            butDeleteServer.Show();
         }
 
         // Hide Menu Item "Server"
@@ -549,6 +702,18 @@ namespace NetShare
             butMenuReturn.Visible = false;
             menuItemHeader.Image = null;
             menuItemHeader.Hide();
+
+            addServerBack.Hide();
+            addNameInput.Hide();
+            addIPInput.Hide();
+            addPortInput.Hide();
+
+            butAddServer.Hide();
+
+            listServerBack.Hide();
+            serverCheckList.Hide();
+
+            butDeleteServer.Hide();
         }
 
         // Show Menu Item "Network Devices"
@@ -557,6 +722,10 @@ namespace NetShare
             butMenuReturn.Visible = true;
             menuItemHeader.Image = Image.FromFile("../../Resources/networkDevicesHeader.png");
             menuItemHeader.Show();
+            listNetDevBack.Show();
+
+            netDevList.BringToFront();
+            netDevList.Show();
         }
 
         // Hide Menu Item "Network Devices"
@@ -565,6 +734,15 @@ namespace NetShare
             butMenuReturn.Visible = false;
             menuItemHeader.Image = null;
             menuItemHeader.Hide();
+            listNetDevBack.Hide();
+            netDevList.Hide();
+        }
+
+        private void butAddServer_Click(object sender, EventArgs e)
+        {
+            addNameInput.Clear();
+            addIPInput.Clear();
+            addPortInput.Clear();
         }
     }
 }

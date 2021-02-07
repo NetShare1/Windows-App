@@ -37,6 +37,14 @@
             this.textConInfos = new MetroSuite.MetroTextbox();
             this.butMenuClose = new MetroSuite.MetroButton();
             this.butMenuReturn = new MetroSuite.MetroButton();
+            this.butPerfBased = new MetroSuite.MetroButton();
+            this.addNameInput = new System.Windows.Forms.TextBox();
+            this.addIPInput = new System.Windows.Forms.TextBox();
+            this.addPortInput = new System.Windows.Forms.TextBox();
+            this.butAddServer = new MetroSuite.MetroButton();
+            this.animationAdd = new MetroSuite.Components.MetroAnimator();
+            this.butDeleteServer = new MetroSuite.MetroButton();
+            this.animationDelete = new MetroSuite.Components.MetroAnimator();
             ((System.ComponentModel.ISupportInitialize)(this.formBackground)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.connectionStatusPicture)).BeginInit();
             this.SuspendLayout();
@@ -146,6 +154,7 @@
             this.textConInfos.Style = MetroSuite.Design.Style.Custom;
             this.textConInfos.TabIndex = 5;
             this.textConInfos.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textConInfos.Visible = false;
             // 
             // butMenuClose
             // 
@@ -189,12 +198,134 @@
             this.butMenuReturn.Visible = false;
             this.butMenuReturn.Click += new System.EventHandler(this.butMenuReturn_Click);
             // 
+            // butPerfBased
+            // 
+            this.butPerfBased.AutoStyle = false;
+            this.butPerfBased.BackColor = System.Drawing.Color.Transparent;
+            this.butPerfBased.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.butPerfBased.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(98)))), ((int)(((byte)(98)))));
+            this.butPerfBased.DefaultColor = System.Drawing.Color.FromArgb(((int)(((byte)(176)))), ((int)(((byte)(190)))), ((int)(((byte)(197)))));
+            this.butPerfBased.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(176)))), ((int)(((byte)(190)))), ((int)(((byte)(197)))));
+            this.butPerfBased.DrawBorder = false;
+            this.butPerfBased.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.butPerfBased.ForeColor = System.Drawing.Color.White;
+            this.butPerfBased.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(176)))), ((int)(((byte)(190)))), ((int)(((byte)(197)))));
+            this.butPerfBased.IsRound = true;
+            this.butPerfBased.Location = new System.Drawing.Point(34, 220);
+            this.butPerfBased.Name = "butPerfBased";
+            this.butPerfBased.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(176)))), ((int)(((byte)(190)))), ((int)(((byte)(197)))));
+            this.butPerfBased.RoundingArc = 26;
+            this.butPerfBased.Size = new System.Drawing.Size(106, 26);
+            this.butPerfBased.Style = MetroSuite.Design.Style.Custom;
+            this.butPerfBased.TabIndex = 8;
+            this.butPerfBased.Text = "Selected";
+            this.butPerfBased.Visible = false;
+            // 
+            // addNameInput
+            // 
+            this.addNameInput.BackColor = System.Drawing.Color.White;
+            this.addNameInput.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.addNameInput.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addNameInput.Location = new System.Drawing.Point(85, 123);
+            this.addNameInput.Name = "addNameInput";
+            this.addNameInput.Size = new System.Drawing.Size(225, 15);
+            this.addNameInput.TabIndex = 10;
+            this.addNameInput.Visible = false;
+            this.addNameInput.WordWrap = false;
+            // 
+            // addIPInput
+            // 
+            this.addIPInput.BackColor = System.Drawing.Color.White;
+            this.addIPInput.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.addIPInput.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addIPInput.Location = new System.Drawing.Point(85, 153);
+            this.addIPInput.Name = "addIPInput";
+            this.addIPInput.Size = new System.Drawing.Size(104, 15);
+            this.addIPInput.TabIndex = 13;
+            this.addIPInput.Visible = false;
+            this.addIPInput.WordWrap = false;
+            // 
+            // addPortInput
+            // 
+            this.addPortInput.BackColor = System.Drawing.Color.White;
+            this.addPortInput.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.addPortInput.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addPortInput.Location = new System.Drawing.Point(241, 153);
+            this.addPortInput.Name = "addPortInput";
+            this.addPortInput.Size = new System.Drawing.Size(70, 15);
+            this.addPortInput.TabIndex = 15;
+            this.addPortInput.Visible = false;
+            this.addPortInput.WordWrap = false;
+            // 
+            // butAddServer
+            // 
+            this.butAddServer.AutoStyle = false;
+            this.butAddServer.BackColor = System.Drawing.Color.Transparent;
+            this.butAddServer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.butAddServer.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(98)))), ((int)(((byte)(98)))));
+            this.butAddServer.DefaultColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(182)))), ((int)(((byte)(246)))));
+            this.butAddServer.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(182)))), ((int)(((byte)(246)))));
+            this.butAddServer.DrawBorder = false;
+            this.butAddServer.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.butAddServer.ForeColor = System.Drawing.Color.White;
+            this.butAddServer.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(182)))), ((int)(((byte)(246)))));
+            this.butAddServer.IsRound = true;
+            this.butAddServer.Location = new System.Drawing.Point(239, 182);
+            this.butAddServer.Name = "butAddServer";
+            this.butAddServer.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(182)))), ((int)(((byte)(246)))));
+            this.butAddServer.RoundingArc = 26;
+            this.butAddServer.Size = new System.Drawing.Size(72, 26);
+            this.butAddServer.Style = MetroSuite.Design.Style.Custom;
+            this.butAddServer.TabIndex = 16;
+            this.butAddServer.Text = "Add";
+            this.butAddServer.Visible = false;
+            this.butAddServer.Click += new System.EventHandler(this.butAddServer_Click);
+            // 
+            // animationAdd
+            // 
+            this.animationAdd.ClickControl = this.butAddServer;
+            this.animationAdd.Speed = 7;
+            // 
+            // butDeleteServer
+            // 
+            this.butDeleteServer.AutoStyle = false;
+            this.butDeleteServer.BackColor = System.Drawing.Color.Transparent;
+            this.butDeleteServer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.butDeleteServer.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(98)))), ((int)(((byte)(98)))));
+            this.butDeleteServer.DefaultColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(182)))), ((int)(((byte)(246)))));
+            this.butDeleteServer.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(182)))), ((int)(((byte)(246)))));
+            this.butDeleteServer.DrawBorder = false;
+            this.butDeleteServer.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.butDeleteServer.ForeColor = System.Drawing.Color.White;
+            this.butDeleteServer.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(182)))), ((int)(((byte)(246)))));
+            this.butDeleteServer.IsRound = true;
+            this.butDeleteServer.Location = new System.Drawing.Point(239, 438);
+            this.butDeleteServer.Name = "butDeleteServer";
+            this.butDeleteServer.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(182)))), ((int)(((byte)(246)))));
+            this.butDeleteServer.RoundingArc = 26;
+            this.butDeleteServer.Size = new System.Drawing.Size(72, 26);
+            this.butDeleteServer.Style = MetroSuite.Design.Style.Custom;
+            this.butDeleteServer.TabIndex = 17;
+            this.butDeleteServer.Text = "Delete";
+            this.butDeleteServer.Visible = false;
+            // 
+            // animationDelete
+            // 
+            this.animationDelete.ClickControl = this.butDeleteServer;
+            this.animationDelete.Speed = 7;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(350, 500);
+            this.Controls.Add(this.butDeleteServer);
+            this.Controls.Add(this.butAddServer);
+            this.Controls.Add(this.addNameInput);
+            this.Controls.Add(this.addPortInput);
+            this.Controls.Add(this.addIPInput);
+            this.Controls.Add(this.butPerfBased);
             this.Controls.Add(this.butMenuReturn);
             this.Controls.Add(this.butMenuClose);
             this.Controls.Add(this.textConInfos);
@@ -217,6 +348,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.formBackground)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.connectionStatusPicture)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -230,6 +362,14 @@
         private MetroSuite.MetroTextbox textConInfos;
         private MetroSuite.MetroButton butMenuClose;
         private MetroSuite.MetroButton butMenuReturn;
+        private MetroSuite.MetroButton butPerfBased;
+        private System.Windows.Forms.TextBox addNameInput;
+        private System.Windows.Forms.TextBox addIPInput;
+        private System.Windows.Forms.TextBox addPortInput;
+        private MetroSuite.MetroButton butAddServer;
+        private MetroSuite.Components.MetroAnimator animationAdd;
+        private MetroSuite.MetroButton butDeleteServer;
+        private MetroSuite.Components.MetroAnimator animationDelete;
     }
 }
 
