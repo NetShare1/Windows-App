@@ -251,13 +251,12 @@ namespace NetShare
         {
             List<string> netDevices = new List<string>();
             ManagementClass managementClass = new ManagementClass("Win32_NetworkAdapterConfiguration");
-            ManagementObjectCollection instances = managementClass.GetInstances();
 
-            foreach (ManagementObject managementObject in instances)
+            foreach (ManagementObject managementObject in managementClass.GetInstances())
             {
                 if ((bool)managementObject["ipEnabled"])
                 {
-                    netDevices.Add(managementObject["Caption"].ToString().Remove(0, 11));
+                    netDevices.Add(managementObject["Description"].ToString());
                 }
             }
 
