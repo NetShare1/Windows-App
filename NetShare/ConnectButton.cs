@@ -75,17 +75,17 @@ namespace NetShare
         GraphicsPath GetRoundPath(RectangleF Rect, int radius)
         {
             float r2 = radius / 2f;
-            GraphicsPath GraphPath = new GraphicsPath();
-            GraphPath.AddArc(Rect.X, Rect.Y, radius, radius, 180, 90);
-            GraphPath.AddLine(Rect.X + r2, Rect.Y, Rect.Width - r2, Rect.Y);
-            GraphPath.AddArc(Rect.X + Rect.Width - radius, Rect.Y, radius, radius, 270, 90);
-            GraphPath.AddLine(Rect.Width, Rect.Y + r2, Rect.Width, Rect.Height - r2);
-            GraphPath.AddArc(Rect.X + Rect.Width - radius, Rect.Y + Rect.Height - radius, radius, radius, 0, 90);
-            GraphPath.AddLine(Rect.Width - r2, Rect.Height, Rect.X + r2, Rect.Height);
-            GraphPath.AddArc(Rect.X, Rect.Y + Rect.Height - radius, radius, radius, 90, 90);
-            GraphPath.AddLine(Rect.X, Rect.Height - r2, Rect.X, Rect.Y + r2);
-            GraphPath.CloseFigure();
-            return GraphPath;
+            GraphicsPath graphPath = new GraphicsPath();
+            graphPath.AddArc(Rect.X, Rect.Y, radius, radius, 180, 90);
+            graphPath.AddLine(Rect.X + r2, Rect.Y, Rect.Width - r2, Rect.Y);
+            graphPath.AddArc(Rect.X + Rect.Width - radius, Rect.Y, radius, radius, 270, 90);
+            graphPath.AddLine(Rect.Width, Rect.Y + r2, Rect.Width, Rect.Height - r2);
+            graphPath.AddArc(Rect.X + Rect.Width - radius, Rect.Y + Rect.Height - radius, radius, radius, 0, 90);
+            graphPath.AddLine(Rect.Width - r2, Rect.Height, Rect.X + r2, Rect.Height);
+            graphPath.AddArc(Rect.X, Rect.Y + Rect.Height - radius, radius, radius, 90, 90);
+            graphPath.AddLine(Rect.X, Rect.Height - r2, Rect.X, Rect.Y + r2);
+            graphPath.CloseFigure();
+            return graphPath;
         }
 
         protected override void OnPaint(PaintEventArgs paintEvent)
@@ -109,16 +109,16 @@ namespace NetShare
             SizeF textSize = g.MeasureString(Text, Font);
 
             // Draw Button and Text
-            using (GraphicsPath GraphPath = GetRoundPath(Rect, 15))
+            using (GraphicsPath graphPath = GetRoundPath(Rect, 15))
             {
-                paintEvent.Graphics.FillPath(buttonBrush, GraphPath);
+                paintEvent.Graphics.FillPath(buttonBrush, graphPath);
                 if (!_isConnecting)
                 {
                     paintEvent.Graphics.DrawString(Text, Font, textBrush, (Width - textSize.Width) / 2, (Height - textSize.Height) / 2);
                 } 
                 else
                 {
-                    paintEvent.Graphics.DrawString(Text, Font, textBrush, (Width - textSize.Width) / 2 + 5, (Height - textSize.Height) / 2);
+                    paintEvent.Graphics.DrawString(Text, Font, textBrush, (Width - textSize.Width) / 2 + 1, (Height - textSize.Height) / 2);
                 }
             }
 

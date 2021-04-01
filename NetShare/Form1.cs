@@ -3,6 +3,11 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.IO;
+using System.Management;
 
 /*
  * name: Manuel Lind
@@ -28,6 +33,9 @@ namespace NetShare
         ListBox serverCheckList = new ListBox();
         PictureBox listNetDevBack = new PictureBox();
         ListBox netDevList = new ListBox();
+        ServerSettings serverSettings;
+        string AppPath;
+        const string settingsFile = "serverSettings.json";
 
         public static bool Deactivated = false;
         bool isClicked = false;
@@ -36,11 +44,20 @@ namespace NetShare
 
         public Form1()
         {
-            // Manually fill the ServerList for Demo
-            for (int i = 0; i < 10; i++)
+            AppPath = AppDomain.CurrentDomain.BaseDirectory;
+            if (!AppPath.EndsWith("\\"))
             {
-                serverList.Items.Add("127.100.100.10" + i);
-                serverList.Items.Add("127.0.0." + i);
+                AppPath += "\\";
+            }
+
+            // Read the ServerSettings from File
+            try
+            {
+                string settings = File.ReadAllText(AppPath + settingsFile);
+                serverSettings = JsonSerializer.Deserialize<ServerSettings>(settings);
+            } catch (Exception)
+            {
+                serverSettings = new ServerSettings();
             }
 
             confControls();
@@ -164,14 +181,13 @@ namespace NetShare
             serverCheckList.DrawMode = DrawMode.OwnerDrawVariable;
             serverCheckList.ItemHeight = 30;
 
-            // For Demo-Purposes
-            serverCheckList.Items.Add("Heim-Server");
-            serverCheckList.Items.Add("Arbeits-Server");
-            serverCheckList.Items.Add("Firmen-Server");
-            serverCheckList.Items.Add("Schul-Server");
-            serverCheckList.Items.Add("Test1-Server");
-            serverCheckList.Items.Add("Test2-Server");
-
+            // Load saved ServerSettings
+            for (int i = 0; i < serverSettings.serverList.Count; i++)
+            {
+                serverCheckList.Items.Add(serverSettings.serverList[i].name);
+                serverList.Items.Add(serverSettings.serverList[i].name);
+            }
+            
             Controls.Add(serverCheckList);
             serverCheckList.Hide();
 
@@ -190,33 +206,72 @@ namespace NetShare
             netDevList.Font = new Font("Century Gothic", 12, FontStyle.Regular);
             netDevList.Location = new Point(38, 132);
             netDevList.Size = new Size(270, 310);
-            netDevList.SelectionMode = SelectionMode.MultiSimple;
+            //netDevList.SelectionMode = SelectionMode.MultiSimple;
 
             netDevList.DrawMode = DrawMode.OwnerDrawFixed;
             netDevList.DrawItem += netDevList_DrawItem;
             netDevList.DrawMode = DrawMode.OwnerDrawVariable;
             netDevList.ItemHeight = 30;
 
-            // For Demo-Purposes
-            netDevList.Items.Add("HTL-WLAN");
-            netDevList.Items.Add("AP von Lind");
-            netDevList.Items.Add("The Cake");
-            netDevList.Items.Add("The Cake2");
-            netDevList.Items.Add("Grafl-Wifi");
-            netDevList.Items.Add("HTL-Guests");
+            // Add all Active Network Devices to ListBox
+            foreach (string device in GetNetworkDevices())
+            {
+                netDevList.Items.Add(device);
+            }
+
+            // Activate Horizontal Scrollbar if Entry is too large
+            netDevList.HorizontalScrollbar = true;
+
+            Graphics g = netDevList.CreateGraphics();
+
+            int largestSize = 0;
+            
+            for (int i = 0; i < netDevList.Items.Count - 1; i++)
+            {
+                int tempSize = (int)g.MeasureString(netDevList.Items[i].ToString(), netDevList.Font).Width;
+                if (tempSize > largestSize)
+                {
+                    largestSize = tempSize;
+                }
+            }
+
+            if (largestSize == 0)
+            {
+                largestSize = (int)g.MeasureString(netDevList.Items[0].ToString(), netDevList.Font).Width;
+            }
+
+            netDevList.HorizontalExtent = largestSize;
 
             Controls.Add(netDevList);
             netDevList.Hide();
         }
 
-        // Manually Draw of ListItems of ServerList in Menu
-        private void netDevList_DrawItem(object sender, DrawItemEventArgs e)
+        // Get all Active Network Devices
+        public List<string> GetNetworkDevices()
         {
-            DrawItem(sender, e);
+            List<string> netDevices = new List<string>();
+            ManagementClass managementClass = new ManagementClass("Win32_NetworkAdapterConfiguration");
+            ManagementObjectCollection instances = managementClass.GetInstances();
+
+            foreach (ManagementObject managementObject in instances)
+            {
+                if ((bool)managementObject["ipEnabled"])
+                {
+                    netDevices.Add(managementObject["Caption"].ToString().Remove(0, 11));
+                }
+            }
+
+            return netDevices;
         }
 
         // Manually Draw of ListItems of ServerList in Menu
         private void serverCheckList_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            DrawItem(sender, e);
+        }
+
+        // Manually Draw of ListItems of NetworkDevicesList in Menu
+        private void netDevList_DrawItem(object sender, DrawItemEventArgs e)
         {
             DrawItem(sender, e);
         }
@@ -240,7 +295,7 @@ namespace NetShare
             }
         }
 
-        // Manually Draw of ListItems of ServerList at Connect
+        // Manually Draw of ListItems of ServerList at ConnectButton
         private void serverList_DrawItem(object sender, DrawItemEventArgs e)
         {
             ListBox list = (ListBox)sender;
@@ -255,7 +310,7 @@ namespace NetShare
                 e.DrawFocusRectangle();
                 Brush brush = new SolidBrush(e.ForeColor);
                 SizeF size = e.Graphics.MeasureString(item.ToString(), e.Font);
-                e.Graphics.DrawString(item.ToString(), e.Font, brush, e.Bounds.Left + (e.Bounds.Width / 2 - size.Width / 2) + 13, e.Bounds.Top + (e.Bounds.Height / 2 - size.Height / 2));
+                e.Graphics.DrawString(item.ToString(), e.Font, brush, e.Bounds.Left + (e.Bounds.Width / 2 - size.Width / 2) + 6, e.Bounds.Top + (e.Bounds.Height / 2 - size.Height / 2));
             }
         }
 
@@ -740,9 +795,52 @@ namespace NetShare
 
         private void butAddServer_Click(object sender, EventArgs e)
         {
-            addNameInput.Clear();
-            addIPInput.Clear();
-            addPortInput.Clear();
+            if (addNameInput.Text != "" && addIPInput.Text != "" && addPortInput.Text != "")
+            {
+                serverCheckList.Items.Add(addNameInput.Text);
+                serverList.Items.Add(addNameInput.Text);
+
+                // Save in Settings
+                ServerObject serverObject = new ServerObject();
+                serverObject.name = addNameInput.Text;
+                serverObject.ip = addIPInput.Text;
+                int port;
+                int.TryParse(addPortInput.Text, out port);
+                serverObject.port = port;
+
+                serverSettings.serverList.Add(serverObject);
+
+                addNameInput.Clear();
+                addIPInput.Clear();
+                addPortInput.Clear();
+            }
+        }
+
+        private void butDeleteServer_Click(object sender, EventArgs e)
+        {
+            int selectedIndex;
+
+            if ((selectedIndex = serverCheckList.SelectedIndex) != -1)
+            {
+                serverCheckList.Items.RemoveAt(selectedIndex);
+                serverList.Items.RemoveAt(selectedIndex);
+
+                // Remove in Settings-File
+                serverSettings.serverList.RemoveAt(selectedIndex);
+            }
+        }
+
+        // Save ServerList to File
+        public void saveSettings()
+        {
+            try
+            {
+                string settings = JsonSerializer.Serialize(serverSettings);
+                File.WriteAllText(AppPath + settingsFile, settings);
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

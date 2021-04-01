@@ -308,6 +308,7 @@
             this.butDeleteServer.TabIndex = 17;
             this.butDeleteServer.Text = "Delete";
             this.butDeleteServer.Visible = false;
+            this.butDeleteServer.Click += new System.EventHandler(this.butDeleteServer_Click);
             // 
             // animationDelete
             // 

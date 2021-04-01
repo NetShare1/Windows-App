@@ -35,6 +35,9 @@ namespace NetShare
         {
             // Hide tray icon, otherwise it will remain shown until user mouses over it
             trayIcon.Visible = false;
+            Form.saveSettings();
+            Form.Close();
+            Form.Dispose();
             Application.Exit();
         }
 
