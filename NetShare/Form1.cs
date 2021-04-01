@@ -206,7 +206,7 @@ namespace NetShare
             netDevList.Font = new Font("Century Gothic", 12, FontStyle.Regular);
             netDevList.Location = new Point(38, 132);
             netDevList.Size = new Size(270, 310);
-            //netDevList.SelectionMode = SelectionMode.MultiSimple;
+            netDevList.SelectionMode = SelectionMode.MultiSimple;
 
             netDevList.DrawMode = DrawMode.OwnerDrawFixed;
             netDevList.DrawItem += netDevList_DrawItem;
