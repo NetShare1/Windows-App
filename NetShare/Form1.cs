@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.IO;
 using System.Management;
+using System.Net.Sockets;
 
 /*
  * name: Manuel Lind
@@ -839,6 +840,91 @@ namespace NetShare
             } catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        // Connect Driver to Server
+        public void Start()
+        {
+            try
+            {
+                this.Refresh();
+                TcpClient client = new TcpClient("localhost", 5260);
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes("{\"type\":\"Put\",\"on\":\"driver.state\",\"data\":{ \"state\":\"running\"}}\n");
+                NetworkStream stream = client.GetStream();
+                stream.Write(data, 0, data.Length);
+                String responseData = String.Empty;
+                int crashed = 0;
+
+                while (true)
+                {
+                    Int32 bytes = stream.Read(data, 0, data.Length);
+                    responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+                    if (responseData.Contains("startup"))
+                    {
+                        Debug.WriteLine("Connecting");
+                    }
+                    else if (responseData.Contains("crashed"))
+                    {
+                        Debug.WriteLine("Crashed");
+                        if (crashed > 2)
+                        {
+                            Debug.WriteLine("Crashed More than 2 times");
+                            return;
+                        }
+                        client = new TcpClient("localhost", 5260);
+                        data = System.Text.Encoding.ASCII.GetBytes("{\"type\":\"Put\",\"on\":\"driver.state\",\"data\":{ \"state\":\"running\"}}\n");
+                        stream = client.GetStream();
+                        stream.Write(data, 0, data.Length);
+                        responseData = String.Empty;
+                        crashed++;
+                    }
+                    else if (responseData.Contains("running"))
+                    {
+                        Debug.WriteLine("Connected");
+                        this.Refresh();
+                        data = System.Text.Encoding.ASCII.GetBytes("{\"type\":\"Put\",\"on\":\"connection.state\",\"data\":{ \"state\":\"closed\"}}\n");
+                        stream.Write(data, 0, data.Length);
+                        return;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+        }
+
+        // Disconnect Driver from Server
+        public void Stop()
+        {
+            try
+            {
+                TcpClient client = new TcpClient("localhost", 5260);
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes("{\"type\":\"Put\",\"on\":\"driver.state\",\"data\":{ \"state\":\"stopped\"}}\n");
+                NetworkStream stream = client.GetStream();
+                stream.Write(data, 0, data.Length);
+                String responseData = String.Empty;
+
+                while (true)
+                {
+                    Int32 bytes = stream.Read(data, 0, data.Length);
+                    responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+
+                    if (responseData.Contains("stopped"))
+                    {
+                        Debug.WriteLine("Disconnected");
+                        this.Refresh();
+                        data = System.Text.Encoding.ASCII.GetBytes("{\"type\":\"Put\",\"on\":\"connection.state\",\"data\":{ \"state\":\"closed\"}}\n");
+                        stream.Write(data, 0, data.Length);
+                        return;
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
             }
         }
     }
