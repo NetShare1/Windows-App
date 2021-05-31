@@ -38,3 +38,32 @@ D:\Diplomarbeit\GIT\Windows-App\NetShare\bin\Debug\System.Text.Encodings.Web.xml
 D:\Diplomarbeit\GIT\Windows-App\NetShare\bin\Debug\System.Text.Json.xml
 D:\Diplomarbeit\GIT\Windows-App\NetShare\bin\Debug\System.Threading.Tasks.Extensions.xml
 D:\Diplomarbeit\GIT\Windows-App\NetShare\bin\Debug\System.ValueTuple.xml
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\bin\Debug\NetShare.exe.config
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\bin\Debug\NetShare.exe
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\bin\Debug\NetShare.pdb
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\bin\Debug\System.Buffers.dll
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\bin\Debug\System.Memory.dll
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\bin\Debug\System.Text.Json.dll
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\bin\Debug\System.ValueTuple.dll
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\bin\Debug\System.Buffers.xml
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\bin\Debug\System.Memory.xml
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\bin\Debug\System.Text.Json.xml
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\bin\Debug\System.ValueTuple.xml
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\obj\Debug\NetShare.csprojAssemblyReference.cache
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\obj\Debug\NetShare.Form1.resources
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\obj\Debug\NetShare.Properties.Resources.resources
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\obj\Debug\NetShare.csproj.GenerateResource.cache
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\obj\Debug\NetShare.csproj.CoreCompileInputs.cache
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\obj\Debug\NetShare.csproj.CopyComplete
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\obj\Debug\NetShare.exe
+C:\Users\GraflMartin4AHIF\Documents\Neuer Ordner\Windows-App\NetShare\obj\Debug\NetShare.pdb

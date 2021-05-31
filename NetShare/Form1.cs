@@ -9,6 +9,8 @@ using System.Text.Json.Serialization;
 using System.IO;
 using System.Management;
 using System.Net.Sockets;
+using System.Threading;
+using static System.Windows.Forms.ListBox;
 
 /*
  * name: Manuel Lind
@@ -42,6 +44,8 @@ namespace NetShare
         bool isClicked = false;
         string chosenServer = "";
         bool isClickedOnArrow = false;
+
+        ServerObject server = new ServerObject();
 
         public Form1()
         {
@@ -215,9 +219,9 @@ namespace NetShare
             netDevList.ItemHeight = 30;
 
             // Add all Active Network Devices to ListBox
-            foreach (string device in GetNetworkDevices())
+            foreach (ManagementObject device in GetNetworkDevices())
             {
-                netDevList.Items.Add(device);
+                netDevList.Items.Add(device["Description"]);
             }
 
             // Activate Horizontal Scrollbar if Entry is too large
@@ -248,16 +252,16 @@ namespace NetShare
         }
 
         // Get all Active Network Devices
-        public List<string> GetNetworkDevices()
+        public List<ManagementObject> GetNetworkDevices()
         {
-            List<string> netDevices = new List<string>();
+            List<ManagementObject> netDevices = new List<ManagementObject>();
             ManagementClass managementClass = new ManagementClass("Win32_NetworkAdapterConfiguration");
 
             foreach (ManagementObject managementObject in managementClass.GetInstances())
             {
                 if ((bool)managementObject["ipEnabled"])
                 {
-                    netDevices.Add(managementObject["Description"].ToString());
+                    netDevices.Add(managementObject);
                 }
             }
 
@@ -273,8 +277,61 @@ namespace NetShare
         // Manually Draw of ListItems of NetworkDevicesList in Menu
         private void netDevList_DrawItem(object sender, DrawItemEventArgs e)
         {
-            DrawItem(sender, e);
+            ListBox list = (ListBox)sender;
+            if (e.Index > -1)
+            {
+                if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+                {
+                    e = new DrawItemEventArgs(e.Graphics, new Font("Century Gothic", 13, FontStyle.Bold), e.Bounds, e.Index, e.State ^ DrawItemState.Selected, Color.FromArgb(41, 182, 246), Color.White);
+                    
+                }
+                
+                object item = list.Items[e.Index];
+                e.DrawBackground();
+                e.DrawFocusRectangle();
+                Brush brush = new SolidBrush(e.ForeColor);
+                SizeF size = e.Graphics.MeasureString(item.ToString(), e.Font);
+                e.Graphics.DrawString(item.ToString(), e.Font, brush, e.Bounds.Left, e.Bounds.Top);
+            }
         }
+
+        public void configNetDev(List<object> selectedData)
+        {
+            string netDevSettigs = "";
+            List<ManagementObject> netAdapterList = GetNetworkDevices();
+            foreach (ManagementObject mo in netAdapterList)
+            {
+                foreach (object item in selectedData)
+                {
+                    if (item.ToString().Equals(mo["Description"].ToString()))
+                    {
+                        netDevSettigs += "\""+ mo["SettingID"] + "\"" + ",";
+                    }
+                }
+                
+            }
+            if (netDevSettigs == "")
+            {
+                return;
+            }
+            try
+            {
+                netDevSettigs = netDevSettigs.Remove(netDevSettigs.Length - 1);
+                Debug.WriteLine("");
+                Debug.WriteLine(netDevSettigs);
+                TcpClient client = new TcpClient("localhost", 5260);
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes("{\"type\":\"Put\",\"on\":\"config\",\"data\":{ \"names\" : [" + netDevSettigs + "] }}\n");
+                NetworkStream stream = client.GetStream();
+                stream.Write(data, 0, data.Length);
+                data = System.Text.Encoding.ASCII.GetBytes("{\"type\":\"Put\",\"on\":\"connection.state\",\"data\":{ \"state\":\"closed\"}}\n");
+                stream.Write(data, 0, data.Length);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+        }
+
 
         // Manually Draw of ListItems
         private void DrawItem(object sender, DrawItemEventArgs e)
@@ -324,6 +381,43 @@ namespace NetShare
             connectButton.ButtonColor = Color.FromArgb(67, 160, 71);
             isClicked = false;
             connectButton.IsOpen = false;
+            configServer();
+        }
+
+        public void configServer()
+        {
+            
+            if (server.name != null)
+            {
+                if (server.name.Equals(chosenServer) || chosenServer == "")
+                {
+                    Debug.WriteLine("return");
+                    return;
+                }
+            }
+            foreach (ServerObject so in serverSettings.serverList)
+            {
+                if (so.name.Equals(chosenServer))
+                {
+                    server = so;
+                    break;
+                }
+            }
+            try
+            {
+                TcpClient client = new TcpClient("localhost", 5260);
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes("{\"type\":\"Put\",\"on\":\"config\",\"data\":{ \"serverIp\" : \"" + server.ip + "\" }}\n");
+                NetworkStream stream = client.GetStream();
+                stream.Write(data, 0, data.Length);
+                data = System.Text.Encoding.ASCII.GetBytes("{\"type\":\"Put\",\"on\":\"config\",\"data\":{ \"serverPort\" : \"" + server.port.ToString() + "\" }}\n");
+                stream.Write(data, 0, data.Length);
+                data = System.Text.Encoding.ASCII.GetBytes("{\"type\":\"Put\",\"on\":\"connection.state\",\"data\":{ \"state\":\"closed\"}}\n");
+                stream.Write(data, 0, data.Length);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
         }
 
         private void connectButton_MouseDown(object sender, MouseEventArgs e)
@@ -341,7 +435,7 @@ namespace NetShare
                 if (e.Button == MouseButtons.Left)
                 {
                     // ClickEvent to Disconnect from Server
-                    changeFormStyleToDisconnected();
+                    Stop();
                     return;
                 }
             }
@@ -372,12 +466,7 @@ namespace NetShare
                         // ClickEvent to Connect to Server
                         if (chosenServer.Length > 0)
                         {
-                            changeFormStyleToConnecting();
-
-                            // Wait only for Demo-Purposes!
-                            wait(2000);
-
-                            changeFormStyleToConnected();
+                            Start();
                         }
                     }
                 }
@@ -791,6 +880,18 @@ namespace NetShare
             menuItemHeader.Hide();
             listNetDevBack.Hide();
             netDevList.Hide();
+
+            List<object> selected = new List<object>();
+            foreach(object o in netDevList.SelectedItems)
+            {
+                selected.Add(o);
+            }
+
+            Thread configNetDevThread = new Thread(new ThreadStart(new MethodInvoker(() =>
+            {configNetDev(selected);})));
+
+            configNetDevThread.Start();
+
         }
 
         private void butAddServer_Click(object sender, EventArgs e)
@@ -848,7 +949,6 @@ namespace NetShare
         {
             try
             {
-                this.Refresh();
                 TcpClient client = new TcpClient("localhost", 5260);
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes("{\"type\":\"Put\",\"on\":\"driver.state\",\"data\":{ \"state\":\"running\"}}\n");
                 NetworkStream stream = client.GetStream();
@@ -863,6 +963,7 @@ namespace NetShare
                     if (responseData.Contains("startup"))
                     {
                         Debug.WriteLine("Connecting");
+                        changeFormStyleToConnecting();
                     }
                     else if (responseData.Contains("crashed"))
                     {
@@ -882,7 +983,7 @@ namespace NetShare
                     else if (responseData.Contains("running"))
                     {
                         Debug.WriteLine("Connected");
-                        this.Refresh();
+                        changeFormStyleToConnected();
                         data = System.Text.Encoding.ASCII.GetBytes("{\"type\":\"Put\",\"on\":\"connection.state\",\"data\":{ \"state\":\"closed\"}}\n");
                         stream.Write(data, 0, data.Length);
                         return;
@@ -914,7 +1015,7 @@ namespace NetShare
                     if (responseData.Contains("stopped"))
                     {
                         Debug.WriteLine("Disconnected");
-                        this.Refresh();
+                        changeFormStyleToDisconnected();
                         data = System.Text.Encoding.ASCII.GetBytes("{\"type\":\"Put\",\"on\":\"connection.state\",\"data\":{ \"state\":\"closed\"}}\n");
                         stream.Write(data, 0, data.Length);
                         return;

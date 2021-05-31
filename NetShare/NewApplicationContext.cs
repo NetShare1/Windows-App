@@ -1,5 +1,7 @@
 ﻿using NetShare.Properties;
 using System;
+using System.Diagnostics;
+using System.Net.Sockets;
 using System.Windows.Forms;
 
 /*
@@ -33,7 +35,17 @@ namespace NetShare
 
         void Exit(object sender, EventArgs e)
         {
-            // Hide tray icon, otherwise it will remain shown until user mouses over it
+            try
+            {
+                TcpClient client = new TcpClient("localhost", 5260);
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes("{\"type\":\"Put\",\"on\":\"deamon.state\",\"data\":{ \"state\" : \"stopped\" }}\n");
+                NetworkStream stream = client.GetStream();
+                stream.Write(data, 0, data.Length);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
             trayIcon.Visible = false;
             Form.saveSettings();
             Form.Close();
